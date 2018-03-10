@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>转盘抽奖</title>
+</head>
+<style>
+    html, body{
+        margin:0;
+        padding: 0;
+        overflow: hidden;
+    }
+    .content{
+        width: 650px;
+        margin: 50px auto;
+        background-color: #5C4423;
+        overflow: hidden;
+        border-radius: 5px;
+    }
+    .content ul{
+        overflow: hidden;
+        padding-left: 22px;
+    }
+    .content ul li{
+        float: left;
+        list-style: none;
+        margin-right: 4px;
+        margin-bottom: 8px;
+        height: 200px;
+    }
+    .content .active{
+        border: 1px solid #ffffff;
+        border-radius: 5px;
+        opacity: 1.0;
+    }
+    .content ul li img{
+        opacity: 0.5;
+        cursor: pointer;
+    }
+    .btn{
+        width: 200px;
+        text-align: center;
+        line-height: 200px;
+        color: #fff;
+        cursor: pointer;
+    }
+</style>
+<body>
+   <div class="content">
+       <ul>
+           <li>
+               <img src="img/img1.jpg" class="active" id="ac1">
+           </li>
+           <li>
+               <img src="img/img2.jpg" id="ac2">
+           </li>
+           <li>
+               <img src="img/img3.jpg" id="ac3">
+           </li>
+           <li>
+               <img src="img/img8.jpg" id="ac8">
+           </li>
+           <li class="btn">
+               开始抽奖
+           </li>
+           <li>
+               <img src="img/img4.jpg" id="ac4">
+           </li>
+           <li>
+               <img src="img/img7.jpg" id="ac7">
+           </li>
+           <li>
+               <img src="img/img6.jpg" id="ac6">
+           </li>
+           <li>
+               <img src="img/img5.jpg" id="ac5">
+           </li>
+       </ul>
+   </div>
+<script src="js/jquery.1.10.2.js"></script>
+<script>
+    $(function() {
+      var $imgs = $('.content>ul>li>img');
+      var time = ''  //创建一个定时器
+      var click = false; //一个阻止多次点击的标志
+      $('.btn').on('click',function() {
+        if(click){
+          return false;
+        }else{
+          imgQiehuan(1,1);   //这两个实参分别表示转动的个数与总共转动多少圈
+          click = true;
+        }
+
+      });
+
+      function imgQiehuan(i,j) {
+        var speed = 100;
+        time = setInterval(function() {
+          i++;
+          if(i>10){
+            i=1;
+            j++;
+          }
+          //console.log(j);
+          console.log(speed);
+          $imgs.removeClass('active');
+          $('#ac'+i).addClass('active')
+          if(j == 5){
+            answer();
+          }
+        },speed)
+      }
+
+      function answer() {
+        clearInterval(time);
+        alert('恭喜您中奖了!!')
+      }
+
+    })
+</script>
+</body>
+</html>
